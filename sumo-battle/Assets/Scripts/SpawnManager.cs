@@ -2,6 +2,8 @@
 
 public class SpawnManager : MonoBehaviour
 {
+    private const float PositionLimit = 9f;
+
     private GameObject playerGameObject;
 
     public GameObject enemyPrefab;
@@ -10,14 +12,18 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         this.playerGameObject = GameObject.Find("Player");
-        Instantiate(
-            this.enemyPrefab,
-            new Vector3(0, 0, 6),
-            this.playerGameObject.transform.rotation);
+        Instantiate(this.enemyPrefab, this.GenerateRandomPosition(), this.playerGameObject.transform.rotation);
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private Vector3 GenerateRandomPosition()
+    {
+        var randomPositionX = Random.Range(-PositionLimit, PositionLimit);
+        var randomPositionZ = Random.Range(-PositionLimit, PositionLimit);
+        return new Vector3(randomPositionX, 0, randomPositionZ);
     }
 }

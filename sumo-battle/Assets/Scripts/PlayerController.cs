@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidBody;
     private GameObject focalPoint;
 
+    public bool hasPowerup = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +23,14 @@ public class PlayerController : MonoBehaviour
         // What about Time.deltaTime???
         //this.playerRigidBody.AddForce(Vector3.forward * this.playerSpeed * verticalInput);
         this.playerRigidBody.AddForce(this.focalPoint.transform.forward * PlayerSpeed * verticalInput);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Powerup"))
+        {
+            this.hasPowerup = true;
+            Destroy(other.gameObject);
+        }
     }
 }
