@@ -2,10 +2,10 @@
 
 public class PlayerController : MonoBehaviour
 {
+    private const float PlayerSpeed = 3.5f;
+
     private Rigidbody playerRigidBody;
     private GameObject focalPoint;
-
-    public float playerSpeed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,6 @@ public class PlayerController : MonoBehaviour
         var verticalInput = Input.GetAxis("Vertical");
         // What about Time.deltaTime???
         //this.playerRigidBody.AddForce(Vector3.forward * this.playerSpeed * verticalInput);
-        this.playerRigidBody.AddForce(this.focalPoint.transform.forward * this.playerSpeed * verticalInput);
+        this.playerRigidBody.AddForce(this.focalPoint.transform.forward * PlayerSpeed * verticalInput);
     }
 }
