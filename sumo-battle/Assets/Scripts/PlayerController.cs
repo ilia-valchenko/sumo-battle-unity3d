@@ -3,6 +3,7 @@
 public class PlayerController : MonoBehaviour
 {
     private const float PlayerSpeed = 3.5f;
+    private const float PowerUpForce = 15.0f;
 
     private Rigidbody playerRigidBody;
     private GameObject focalPoint;
@@ -31,6 +32,16 @@ public class PlayerController : MonoBehaviour
         {
             this.hasPowerup = true;
             Destroy(other.gameObject);
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && this.hasPowerup)
+        {
+            var enemyRigidBody = collision.gameObject.GetComponent<Rigidbody>();
+            var awayFromPlayer = enemyRigidBody.position - this.playerRigidBody.position;
+            enemyRigidBody.AddForce(awayFromPlayer * PowerUpForce, ForceMode.Impulse);
         }
     }
 }
