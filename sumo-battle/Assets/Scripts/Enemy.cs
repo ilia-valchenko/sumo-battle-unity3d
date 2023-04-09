@@ -3,6 +3,7 @@
 public class Enemy : MonoBehaviour
 {
     private const float EnemySpeed = 3.0f;
+    private const float BottomLimit = -15.0f;
 
     private Rigidbody enemyRigidBody;
     private GameObject playerGameObject;
@@ -20,5 +21,10 @@ public class Enemy : MonoBehaviour
         // Vector - vector (minus)
         Vector3 lookDirection = (this.playerGameObject.transform.position - this.transform.position).normalized;
         this.enemyRigidBody.AddForce(lookDirection * EnemySpeed);
+
+        if (this.transform.position.y < BottomLimit)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
