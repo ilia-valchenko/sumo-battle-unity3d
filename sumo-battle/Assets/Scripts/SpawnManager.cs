@@ -3,10 +3,10 @@
 public class SpawnManager : MonoBehaviour
 {
     private const float PositionLimit = 9f;
-    private const int NumberOfEnemies = 3;
 
     private GameObject playerGameObject;
     private int numberOfAliveEnemies;
+    private int numberOfEnemiesToSpawn = 1;
 
     public GameObject enemyPrefab;
 
@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         this.playerGameObject = GameObject.Find("Player");
-        this.SpawnEnemyWave(NumberOfEnemies);
+        this.SpawnEnemyWave(this.numberOfEnemiesToSpawn);
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
 
         if (this.numberOfAliveEnemies == 0)
         {
-            this.SpawnEnemyWave(1);
+            this.SpawnEnemyWave(++this.numberOfEnemiesToSpawn);
         }
     }
 
