@@ -9,12 +9,14 @@ public class SpawnManager : MonoBehaviour
     private int numberOfEnemiesToSpawn = 1;
 
     public GameObject enemyPrefab;
+    public GameObject powerupPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         this.playerGameObject = GameObject.Find("Player");
         this.SpawnEnemyWave(this.numberOfEnemiesToSpawn);
+        this.SpawnPowerup();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class SpawnManager : MonoBehaviour
         if (this.numberOfAliveEnemies == 0)
         {
             this.SpawnEnemyWave(++this.numberOfEnemiesToSpawn);
+            this.SpawnPowerup();
         }
     }
 
@@ -41,5 +44,10 @@ public class SpawnManager : MonoBehaviour
         {
             Instantiate(this.enemyPrefab, this.GenerateRandomPosition(), this.playerGameObject.transform.rotation);
         }
+    }
+
+    private void SpawnPowerup()
+    {
+        Instantiate(this.powerupPrefab, this.GenerateRandomPosition(), this.powerupPrefab.gameObject.transform.rotation);
     }
 }
