@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && this.hasPowerup)
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("SuperEnemy")) && this.hasPowerup)
         {
             var enemyRigidBody = collision.gameObject.GetComponent<Rigidbody>();
             var awayFromPlayer = enemyRigidBody.position - this.playerRigidBody.position;

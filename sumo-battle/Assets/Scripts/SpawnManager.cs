@@ -5,10 +5,11 @@ public class SpawnManager : MonoBehaviour
     private const float PositionLimit = 9f;
 
     private GameObject playerGameObject;
-    private int numberOfAliveEnemies;
     private int numberOfEnemiesToSpawn = 1;
+    private int waveCount = 0;
 
     public GameObject enemyPrefab;
+    public GameObject superEnemyPrefab;
     public GameObject powerupPrefab;
 
     // Start is called before the first frame update
@@ -22,12 +23,19 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.numberOfAliveEnemies = FindObjectsOfType<Enemy>() == null ? 0 : FindObjectsOfType<Enemy>().Length;
-
-        if (this.numberOfAliveEnemies == 0)
+        if (this.GetNumberOfAliveEnemies() == 0)
         {
-            this.SpawnEnemyWave(++this.numberOfEnemiesToSpawn);
+            if (this.CanSpawnSuperEnemy())
+            {
+                this.SpawnSuperEnemy();
+            }
+            else
+            {
+                this.SpawnEnemyWave(++this.numberOfEnemiesToSpawn);
+            }
+
             this.SpawnPowerup();
+            this.waveCount++;
         }
     }
 
@@ -49,5 +57,23 @@ public class SpawnManager : MonoBehaviour
     private void SpawnPowerup()
     {
         Instantiate(this.powerupPrefab, this.GenerateRandomPosition(), this.powerupPrefab.gameObject.transform.rotation);
+    }
+
+    private bool CanSpawnSuperEnemy()
+    {
+        return this.waveCount != 0 && this.waveCount % 3 == 0;
+    }
+
+    private int GetNumberOfAliveEnemies()
+    {
+        var numberOfEnemies = FindObjectsOfType<Enemy>() == null ? 0 : FindObjectsOfType<Enemy>().Length;
+        var numberOfSuperEnemies = FindObjectsOfType<SuperEnemy>() == null ? 0 : FindObjectsOfType<SuperEnemy>().Length;
+
+        return numberOfEnemies + numberOfSuperEnemies;
+    }
+
+    private void SpawnSuperEnemy()
+    {
+        Instantiate(this.superEnemyPrefab, this.GenerateRandomPosition(), this.playerGameObject.transform.rotation);
     }
 }

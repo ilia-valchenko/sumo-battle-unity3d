@@ -759,6 +759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1921923194726018886, guid: bffba8b5d015e134486461f4fd939b06,
     type: 3}
+  superEnemyPrefab: {fileID: 7468472722607346907, guid: ab81b66987b1a7a4eb1216cef0494f33,
+    type: 3}
   powerupPrefab: {fileID: 2112299228699099778, guid: dc19beb78b459db4ba12c9ac4769aa13,
     type: 3}
 --- !u!4 &1518260845
