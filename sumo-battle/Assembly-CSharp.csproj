@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PowerupSpinner.cs" />
+    <Compile Include="Assets\Scripts\RocketBehaviour.cs" />
     <Compile Include="Assets\Scripts\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\SuperEnemy.cs" />
     <None Include="Assets\Course Library\_Source_Files\_LICENSE.txt" />
