@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+public enum PowerupType
+{
+    None,
+    Default,
+    Missile,
+    Smash
+}
+
 public class PlayerController : MonoBehaviour
 {
     private const float PlayerSpeed = 3.5f;
     private const float PowerUpForce = 15.0f;
     private const float CountdownLimitInSeconds = 7.0f;
 
+    private PowerupType powerupType = PowerupType.None;
+
     private Rigidbody playerRigidBody;
     private GameObject focalPoint;
     private GameObject tmpRocket;
 
-    public bool hasPowerup = false;
-    public bool hasSuperPowerup = false;
     public GameObject powerupIndicator;
     public GameObject missilePrefab;
 
@@ -32,7 +40,7 @@ public class PlayerController : MonoBehaviour
         this.playerRigidBody.AddForce(this.focalPoint.transform.forward * PlayerSpeed * verticalInput);
         this.powerupIndicator.gameObject.transform.position = this.transform.position + new Vector3(0, -0.5f, 0);
 
-        if (this.hasSuperPowerup && Input.GetKeyDown(KeyCode.Space))
+        if (this.powerupType == PowerupType.Missile && Input.GetKeyDown(KeyCode.Space))
         {
             this.LaunchRocket();
         }
@@ -40,19 +48,32 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if ((other.CompareTag("Powerup") || other.CompareTag("SuperPowerup")) && (!this.hasPowerup || !this.hasSuperPowerup))
+        if (this.powerupType != PowerupType.None)
         {
-            this.hasPowerup = other.CompareTag("Powerup");
-            this.hasSuperPowerup = other.CompareTag("SuperPowerup");
-            Destroy(other.gameObject);
-            this.powerupIndicator.gameObject.SetActive(true);
-            StartCoroutine(PowerupCountdownRoutine());
+            return;
         }
+
+        if (other.CompareTag("Powerup"))
+        {
+            this.powerupType = PowerupType.Default;
+        }
+        else if (other.CompareTag("SuperPowerup"))
+        {
+            this.powerupType = PowerupType.Missile;
+        }
+        else if (other.CompareTag("SmashPowerup"))
+        {
+            this.powerupType = PowerupType.Smash;
+        }
+
+        Destroy(other.gameObject);
+        this.powerupIndicator.gameObject.SetActive(true);
+        StartCoroutine(PowerupCountdownRoutine());
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("SuperEnemy")) && this.hasPowerup)
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("SuperEnemy")) && this.powerupType != PowerupType.None)
         {
             var enemyRigidBody = collision.gameObject.GetComponent<Rigidbody>();
             var awayFromPlayer = enemyRigidBody.position - this.playerRigidBody.position;
@@ -63,8 +84,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PowerupCountdownRoutine()
     {
         yield return new WaitForSeconds(CountdownLimitInSeconds);
-        this.hasPowerup = false;
-        this.hasSuperPowerup = false;
+        this.powerupType = PowerupType.None;
         this.powerupIndicator.gameObject.SetActive(false);
     }
 

@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject superEnemyPrefab;
     public GameObject powerupPrefab;
     public GameObject superPowerupPrefab;
+    public GameObject smashPowerupPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class SpawnManager : MonoBehaviour
         this.SpawnEnemyWave(this.numberOfEnemiesToSpawn);
         this.SpawnPowerup();
         this.SpawnSuperPowerup();
+        this.SpawnSmashPowerup();
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class SpawnManager : MonoBehaviour
 
             this.SpawnPowerup();
             this.SpawnSuperPowerup();
+            this.SpawnSmashPowerup();
             this.waveCount++;
         }
     }
@@ -65,6 +68,11 @@ public class SpawnManager : MonoBehaviour
     private void SpawnSuperPowerup()
     {
         Instantiate(this.superPowerupPrefab, this.GenerateRandomPosition(), this.superPowerupPrefab.gameObject.transform.rotation);
+    }
+
+    private void SpawnSmashPowerup()
+    {
+        Instantiate(this.smashPowerupPrefab, this.GenerateRandomPosition(), this.smashPowerupPrefab.gameObject.transform.rotation);
     }
 
     private bool CanSpawnSuperEnemy()

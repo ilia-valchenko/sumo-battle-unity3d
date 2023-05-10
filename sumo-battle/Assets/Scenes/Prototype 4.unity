@@ -637,8 +637,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6255ebc4fbf9f4592d9b07a6079c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasPowerup: 0
-  hasSuperPowerup: 0
   powerupIndicator: {fileID: 826832755}
   missilePrefab: {fileID: 1142745309735651482, guid: c9883df8c7549594ca2a17fcdd7613bb,
     type: 3}
@@ -767,6 +765,8 @@ MonoBehaviour:
   powerupPrefab: {fileID: 2112299228699099778, guid: dc19beb78b459db4ba12c9ac4769aa13,
     type: 3}
   superPowerupPrefab: {fileID: 6834335616199725115, guid: 1439d713b49a17646ab2d197fe6acdbc,
+    type: 3}
+  smashPowerupPrefab: {fileID: 4620169800259630486, guid: 5d418815587571f479cbf3428d06b22e,
     type: 3}
 --- !u!4 &1518260845
 Transform:
