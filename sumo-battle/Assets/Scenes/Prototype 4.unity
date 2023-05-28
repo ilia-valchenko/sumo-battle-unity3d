@@ -640,6 +640,10 @@ MonoBehaviour:
   powerupIndicator: {fileID: 826832755}
   missilePrefab: {fileID: 1142745309735651482, guid: c9883df8c7549594ca2a17fcdd7613bb,
     type: 3}
+  hangTime: 1
+  smashSpeed: 10
+  explosionForce: 15
+  explosionRadius: 150
 --- !u!1001 &1403545340
 PrefabInstance:
   m_ObjectHideFlags: 0
